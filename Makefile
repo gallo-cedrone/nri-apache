@@ -1,5 +1,5 @@
 # Don't assume PATH settings
-export PATH := $(PATH):$(GOPATH)/bin
+export PATH := $(GOPATH)/bin:$(PATH):$(GOPATH)/bin
 WORKDIR      := $(shell pwd)
 TARGET       := target
 TARGET_DIR    = $(WORKDIR)/$(TARGET)
@@ -72,6 +72,7 @@ test-only:
 test: test-deps test-only
 
 integration-test: test-deps
+	echo $(PATH)
 	@echo "=== $(INTEGRATION) === [ test ]: running integration tests..."
 	@docker-compose -f tests/integration/docker-compose.yml up -d --build
 	@go test -v -tags=integration ./tests/integration/. || (ret=$$?; docker-compose -f tests/integration/docker-compose.yml down && exit $$ret)
