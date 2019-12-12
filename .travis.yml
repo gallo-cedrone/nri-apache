@@ -23,7 +23,7 @@ jobs:
       deploy:
         provider: releases
         api_key:
-          secure: MYIdEge+4PMwtIRMESedzPF/320VZVKN/p2q4AjSBSjt4lIebsr4y1yBaZ+0csY/E7hvRUd6rOtBdDUnOvf5Wts2GDxlUgNwQTx05RZNSkIL6349BmJvauFbleLIfbZeqzPXwYwY42k1gUPiv0Qq2sEmWclTd54p/d2koIJ5CEjLQdb2I+JG/u0hURGbVuKXbB+7z+bq5G4L8sdAUPHoA6/tyN8YPAXpZeHTkYd3JlK0ckwYKPOkPsT0HGtCSWsjclaNhNkAd+q8EJhjczQvU0TobyVol19cT5A6BO4lTsY+hXEn/nlO+99H7GgRDAR6lXSlqaK7q6UvxoxNIGY0z4ZyRoxT1fejGN8VWYuy+h2HUFm7+20uYRtJ6beFH4yC/8GXI1k0Mwp4jTEthYvn2/7h1J/Tzs+GiL/miL0s6ycjv9A6ZAVprH350WanXIMXZf/5AaY3BMrEscHN99+VGHxm3LRoBnsdjT0R0/CNtsCVKHMh55clas54ffix8uVwiouo5nCjzEQekuv9GFVP26sfqZisqrcvMmgiu7ryPOo9VJYBFd6Y7i2oD8sx2sttF+HkAVRUUtf6renOHmuw9pHnf+wnKfJIIrYcU+MKYDWnwlgAl0RWu7wBOWlMhmM/+AaA26PSO0S5LknXUX7zsMaD0scn6pZwCJvSA9td6s4=
+          secure: PhPIDnh7DATC/fF9nbTLBbzggA1Gwb5aRRyl6RGi65s8wMEWocfTIYzmTYu6H+TJtnFqjf46lEsgtbPSed5BpaehmgS1+1cICOn/qc4Jqhe6xhL4k559Hu+bie/L5iw5QpsOfhKmeCo3M0Ppc+GcnXHA8U5wrUitPKfDHL+hYziE03AcjlzhCNqeKywTkXTfNssKqtrV06mGxS/JTQjXltflMGS9XroUiHc8JlTIdTgkLA2QFQ/+itJjXmlqta1rdypQrKV6NXJjrnZG9Hq/bThQdb2ofIEWF3Keh53sJahwAYdyKGO8LzrwN0JKMUGi2+KVh25eVHRnQpO9tL0JdZcqpVDFcrhCM7SwLc2dGgqeXHfkGd8QkKKrQW04JymwGJqrFDYoJvS3QVSJiBmtiCcmSPC+bGH6RTulKwpS7v443WxnB35gS2XteGLWcM1RnL1tta3efFjrNtw+GM9mKahHHdctea/IDt4CVX4XJcY09ZPRLI7kkOO8dfVSrUUIre3COraV/qE00MlAxbD+i/T/Yksr3O8w9No4hUDoZBJN4CYlY5BpBJWg2UhOQ7xLlSYU/+szrUj5qPX/JMyZ5exbXwqqd6d+yqSFezKKOA25QadjUc3Ju2HdT5URw8Sl/S+3LZs5YLfB4a0f4lSzuLB06ihV/l9AAD7JJKiczi8=
         file: ./target/bin/linux_amd64/nri-apache
         skip_cleanup: true
         #on:
