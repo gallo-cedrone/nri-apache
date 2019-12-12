@@ -1,0 +1,41 @@
+language: go
+go:
+- '1.13'
+service:
+- docker
+jobs:
+  include:
+  - stage: testing Linux and Windows
+    os: linux
+    script: env GO111MODULE=on make clean integration-test
+  - os: linux
+    script: env GO111MODULE=on make clean validate test
+  - os: windows
+    script: go test ./src/
+  - stage: creating Realease
+    os: linux
+    addons:
+      apt:
+        update: true
+        packages:
+        - rpm
+        - ruby
+        - ruby-dev
+        - rubygems
+        - build-essential
+    script:
+    - gem install --no-document fpm
+    - make package
+    deploy:
+      provider: releases
+      file_glob: true
+      api_key:
+        secure: PhPIDnh7DATC/fF9nbTLBbzggA1Gwb5aRRyl6RGi65s8wMEWocfTIYzmTYu6H+TJtnFqjf46lEsgtbPSed5BpaehmgS1+1cICOn/qc4Jqhe6xhL4k559Hu+bie/L5iw5QpsOfhKmeCo3M0Ppc+GcnXHA8U5wrUitPKfDHL+hYziE03AcjlzhCNqeKywTkXTfNssKqtrV06mGxS/JTQjXltflMGS9XroUiHc8JlTIdTgkLA2QFQ/+itJjXmlqta1rdypQrKV6NXJjrnZG9Hq/bThQdb2ofIEWF3Keh53sJahwAYdyKGO8LzrwN0JKMUGi2+KVh25eVHRnQpO9tL0JdZcqpVDFcrhCM7SwLc2dGgqeXHfkGd8QkKKrQW04JymwGJqrFDYoJvS3QVSJiBmtiCcmSPC+bGH6RTulKwpS7v443WxnB35gS2XteGLWcM1RnL1tta3efFjrNtw+GM9mKahHHdctea/IDt4CVX4XJcY09ZPRLI7kkOO8dfVSrUUIre3COraV/qE00MlAxbD+i/T/Yksr3O8w9No4hUDoZBJN4CYlY5BpBJWg2UhOQ7xLlSYU/+szrUj5qPX/JMyZ5exbXwqqd6d+yqSFezKKOA25QadjUc3Ju2HdT5URw8Sl/S+3LZs5YLfB4a0f4lSzuLB06ihV/l9AAD7JJKiczi8=
+      file:
+      - "./target/bin/linux_amd64/nri-apache"
+      - "./target/packages/deb/*.deb"
+      - "./target/packages/rpm/*.rpm"
+      - "./target/packages/tarball/*.tar.gz"
+      skip_cleanup: true
+      on:
+        tags: true
