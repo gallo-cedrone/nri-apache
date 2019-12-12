@@ -1,9 +1,30 @@
 language: go
 
 go:
-- "1.11"
+  - "1.13"
 
-services:
-- docker
+service:
+  - docker
 
-script: make clean validate test integration-test
+jobs:
+  include:
+    - stage: testing Linux and Windows
+      os: linux
+      script: env GO111MODULE=on make clean integration-test
+    -
+      os: linux
+      script: env GO111MODULE=on make clean validate test
+    -
+      os: windows
+      script: go test ./src/
+    - stage: creating Realease
+      os: linux
+      script: make create-bins
+      deploy:
+        provider: releases
+        api_key:
+          secure: MYIdEge+4PMwtIRMESedzPF/320VZVKN/p2q4AjSBSjt4lIebsr4y1yBaZ+0csY/E7hvRUd6rOtBdDUnOvf5Wts2GDxlUgNwQTx05RZNSkIL6349BmJvauFbleLIfbZeqzPXwYwY42k1gUPiv0Qq2sEmWclTd54p/d2koIJ5CEjLQdb2I+JG/u0hURGbVuKXbB+7z+bq5G4L8sdAUPHoA6/tyN8YPAXpZeHTkYd3JlK0ckwYKPOkPsT0HGtCSWsjclaNhNkAd+q8EJhjczQvU0TobyVol19cT5A6BO4lTsY+hXEn/nlO+99H7GgRDAR6lXSlqaK7q6UvxoxNIGY0z4ZyRoxT1fejGN8VWYuy+h2HUFm7+20uYRtJ6beFH4yC/8GXI1k0Mwp4jTEthYvn2/7h1J/Tzs+GiL/miL0s6ycjv9A6ZAVprH350WanXIMXZf/5AaY3BMrEscHN99+VGHxm3LRoBnsdjT0R0/CNtsCVKHMh55clas54ffix8uVwiouo5nCjzEQekuv9GFVP26sfqZisqrcvMmgiu7ryPOo9VJYBFd6Y7i2oD8sx2sttF+HkAVRUUtf6renOHmuw9pHnf+wnKfJIIrYcU+MKYDWnwlgAl0RWu7wBOWlMhmM/+AaA26PSO0S5LknXUX7zsMaD0scn6pZwCJvSA9td6s4=
+        file: ./target/bin/linux_amd64/nri-apache
+        skip_cleanup: true
+        #on:
+        # tags: true
