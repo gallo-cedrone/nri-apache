@@ -7,7 +7,7 @@ jobs:
       matrix:
         go: [ 1.13]
     runs-on: ubuntu-latest
-    container: golang:${{ matrix.go }}-stretch
+    #container: golang:${{ matrix.go }}-stretch Docker Compose is missing
     steps:
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
