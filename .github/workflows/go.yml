@@ -16,6 +16,7 @@ jobs:
       run: go get github.com/jstemmer/go-junit-report github.com/axw/gocov/gocov/... github.com/AlekSi/gocov-xml
     - name: Build and test
       run: |
+        export PATH=$PATH:$(go env GOPATH)/bin
         env GO111MODULE=on make clean validate test integration-test
     - name: CreateRelease
       uses: actions/create-release@v1.0.0
