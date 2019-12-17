@@ -38,7 +38,9 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install rpm ruby ruby-dev rubygems build-essential
+        gem install --no-document fpm
         make package
+        ls -all -R
     - name: Upload Release Asset
       id: upload_release_asset 
       uses: actions/upload-release-asset@v1.0.1
