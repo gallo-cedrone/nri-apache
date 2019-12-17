@@ -1,8 +1,8 @@
 name: Go
 on: 
   push: # Sequence of patterns matched against refs/tags
-    #tags:
-    #- 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   build:
     name: Build
@@ -41,8 +41,7 @@ jobs:
         release_name: ${{ github.ref }}-github-generated
         draft: false
         prerelease: false
-    - name: Upload Release Asset
-      id: upload_release_asset 
+    - name: Upload Release Asset Binary
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,4 +50,30 @@ jobs:
         asset_path: ./target/bin/linux_amd64/nri-apache
         asset_name: nri-apache
         asset_content_type: binary
-        
+    - name: Upload Release Asset RPM
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./target/packages/rpm/nri-apache-0.0.0-dev.x86_64.rpm
+        asset_name: nri-apache-0.0.0-dev.x86_64.rpm
+        asset_content_type: rpm
+    - name: Upload Release Asset DEB
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./target/packages/deb/nri-apache_0.0.0-dev_amd64.deb
+        asset_name: nri-apache_0.0.0-dev_amd64.deb
+        asset_content_type: deb
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./target/packages/tarball/nri-apache_linux_0.0.0_amd64.tar.gz
+        asset_name: nri-apache_linux_0.0.0_amd64.tar.gz
+        asset_content_type: tar
