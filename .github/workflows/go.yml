@@ -3,7 +3,11 @@ on: [push]
 jobs:
   build:
     name: Build
+    strategy:
+      matrix:
+        go: [ 1.13]
     runs-on: ubuntu-latest
+    container: golang:${{ matrix.go }}-stretch
     steps:
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
@@ -20,7 +24,7 @@ jobs:
         env GO111MODULE=on make clean validate test integration-test
     - name: CreateRelease
       uses: actions/create-release@v1.0.0
-      id: create-release 
+      id: create_release 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
@@ -31,7 +35,7 @@ jobs:
     - name: Install dependencies
       run: sudo apt-get install rpm ruby ruby-dev rubygems build-essential
     - name: Upload Release Asset
-      id: upload-release-asset 
+      id: upload_release_asset 
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
