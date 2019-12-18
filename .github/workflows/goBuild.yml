@@ -180,7 +180,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.vars.outputs.outputs.upload_url }}
+        upload_url: ${{ steps.vars.outputs.upload_url }}
         asset_path: ./bin/nri-apache.exe
         asset_name: nri-apache.exe
         asset_content_type: Windows executable
