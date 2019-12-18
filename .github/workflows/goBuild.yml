@@ -171,8 +171,8 @@ jobs:
     - name: Set output
       id: vars
       run: |
-        set /p ARGS= <upload_url/upload_url
-        echo ::set-output name=upload_url::%ARGS%
+        $output=(type upload_url/upload_url)
+        Write-Output "::set-output name=upload_url::$output"
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.1
       env:
