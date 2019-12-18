@@ -65,8 +65,8 @@ jobs:
         draft: false
         prerelease: false
     - name: saveResult
-      run: steps.create_release.outputs.upload_url > tmp
-    - name: Upload math result for job 2
+      run: echo ${{ steps.create_release.outputs.upload_url }} > tmp
+    - name: Upload result
       uses: actions/upload-artifact@v1
       with:
         name: upload_url
