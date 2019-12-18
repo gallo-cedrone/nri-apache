@@ -65,12 +65,12 @@ jobs:
         draft: false
         prerelease: false
     - name: saveResult
-      run: echo ${{ steps.create_release.outputs.upload_url }} > tmp
+      run: echo ${{ steps.create_release.outputs.upload_url }} > upload_url
     - name: Upload result
       uses: actions/upload-artifact@v1
       with:
         name: upload_url
-        path: tmp
+        path: upload_url
 
 
   ###UPLOADING ARTIFACTS TO LINUX MERELY IF THE RELEASE HAS BEEN CREATED###
@@ -98,13 +98,13 @@ jobs:
         sudo gem install --no-document fpm
         sudo make package
         ls -all -R
-    - name: Download tmp 
+    - name: Download upload_url 
       uses: actions/download-artifact@v1
       with:
-        name: tmp
+        name: upload_url
     - name: Set output
       id: vars
-      run: echo ::set-output name=upload_url::$(cat tmp)
+      run: echo ::set-output name=upload_url::$(cat upload_url)
     - name: Upload Release Asset Binary
       uses: actions/upload-release-asset@v1.0.1
       env:
@@ -164,13 +164,13 @@ jobs:
       shell: bash
       run: |
         go build -v -o ./bin/nri-apache.exe  ./src/
-    - name: Download tmp 
+    - name: Download upload_url 
       uses: actions/download-artifact@v1
       with:
-        name: tmp
+        name: upload_url
     - name: Set output
       id: vars
-      run: echo ::set-output name=upload_url::$(cat tmp)
+      run: echo ::set-output name=upload_url::$(cat upload_url)
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.1
       env:
