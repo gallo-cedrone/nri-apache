@@ -145,8 +145,8 @@ jobs:
   ###UPLOADING ARTIFACTS TO WINDOWS MERELY IF THE RELEASE HAS BEEN CREATED###
 
 
-  BuildAndTestWindows:
-    name: BuildAndTestWindows
+  CreateAdnPushWindowsExecutable:
+    name: CreateAdnPushWindowsExecutable
     needs: [CreateRelease]
     strategy:
       matrix:
