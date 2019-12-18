@@ -171,7 +171,9 @@ jobs:
     - name: Set output
       id: vars
       run: |
+        type upload_url/upload_url
         $output=(type upload_url/upload_url)
+        echo $output
         Write-Output "::set-output name=upload_url::$output"
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.1
